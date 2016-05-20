@@ -13,14 +13,11 @@ matrix:
     - python: 3.5
       env: TOXENV=py35
 
-before_install:
-  - if [ "${TOXENV}" = "py24" ]; then add-apt-repository ppa:fkrull/deadsnakes && apt-get update -qq && apt-get install python2.4 -qq; fi
-
-install:
-  - pip install tox
-
-script:
-  - TARGET=sanity ./test/utils/run_tests.sh
+build:
+  ci:
+    - if [ "${TOXENV}" = "py24" ]; then add-apt-repository ppa:fkrull/deadsnakes && apt-get update -qq && apt-get install python2.4 -qq; fi
+    - pip install tox
+    - TARGET=sanity ./test/utils/run_tests.sh
 
 integrations:
   notifications:
