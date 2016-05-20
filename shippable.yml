@@ -1,9 +1,6 @@
 language: python
 
-python:
-  - pypy
-
-env: TOXENV=pypy
+env: TOXENV=py24
 
 matrix:
   include:
