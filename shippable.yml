@@ -1,0 +1,9 @@
+python:
+  - 2.4
+  - 2.6
+  - 2.7
+  - 3.4
+  - 3.5
+
+script:
+  - TARGET=sanity ./test/utils/run_tests.sh
