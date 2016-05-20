@@ -14,7 +14,7 @@ matrix:
       env: TOXENV=py35
 
 before_install:
-  - ./test/utils/shippable.sh
+  - if [ "${TOXENV}" = "py24" ]; then add-apt-repository ppa:fkrull/deadsnakes && apt-get update -qq && apt-get install python2.4 -qq; fi
 
 install:
   - pip install tox
