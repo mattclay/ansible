@@ -3,15 +3,15 @@ language: python
 matrix:
   include:
     - python: 2.4
-      env: TOXENV=24
+      env: TOXENV=py24
     - python: 2.6
-      env: TOXENV=26
+      env: TOXENV=py26
     - python: 2.7
-      env: TOXENV=27
+      env: TOXENV=py27
     - python: 3.4
-      env: TOXENV=34
+      env: TOXENV=py34
     - python: 3.5
-      env: TOXENV=35
+      env: TOXENV=py35
 
 install:
   - pip install tox
