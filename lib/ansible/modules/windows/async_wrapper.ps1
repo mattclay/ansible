@@ -404,6 +404,8 @@ Function Start-Watchdog {
 
     $watchdog_pid = $pi.dwProcessId
 
+    Sleep -Seconds 2 # FUTURE: figure out race that's causing the last watchdog in a loop to die
+
     return $watchdog_pid
 }
 
