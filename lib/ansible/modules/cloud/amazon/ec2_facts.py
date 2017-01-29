@@ -98,7 +98,9 @@ class Ec2Metadata(object):
             data = None
         return data
 
-    def _mangle_fields(self, fields, uri, filter_patterns=['public-keys-0']):
+    def _mangle_fields(self, fields, uri, filter_patterns=None):
+        if filter_patterns is None:
+            filter_patterns = ['public-keys-0']
         new_fields = {}
         for key, value in fields.items():
             split_fields = key[len(uri):].split('/')

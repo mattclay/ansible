@@ -155,9 +155,11 @@ import ssl
 from time import sleep
 
 
-def send_msg(msg, server='localhost', port='6667', channel=None, nick_to=[], key=None, topic=None,
+def send_msg(msg, server='localhost', port='6667', channel=None, nick_to=None, key=None, topic=None,
              nick="ansible", color='none', passwd=False, timeout=30, use_ssl=False, part=True, style=None):
     '''send message to IRC'''
+    if nick_to is None:
+        nick_to = []
 
     colornumbers = {
         'white': "00",

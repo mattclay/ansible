@@ -32,7 +32,9 @@ from ansible.module_utils.network_common import to_list
 
 _DEVICE_CONFIGS = {}
 
-def get_config(module, flags=[]):
+def get_config(module, flags=None):
+    if flags is None:
+        flags = []
     cmd = 'show running-config '
     cmd += ' '.join(flags)
     cmd = cmd.strip()

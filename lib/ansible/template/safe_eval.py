@@ -26,7 +26,7 @@ from ansible.compat.six.moves import builtins
 from ansible import constants as C
 from ansible.plugins import filter_loader, test_loader
 
-def safe_eval(expr, locals={}, include_exceptions=False):
+def safe_eval(expr, locals=None, include_exceptions=False):
     '''
     This is intended for allowing things like:
     with_items: a_list_variable
@@ -37,6 +37,8 @@ def safe_eval(expr, locals={}, include_exceptions=False):
     Based on:
     http://stackoverflow.com/questions/12523516/using-ast-and-whitelists-to-make-pythons-eval-safe
     '''
+    if locals is None:
+        locals = {}
 
     # define certain JSON types
     # eg. JSON booleans are unknown to python eval()

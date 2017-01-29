@@ -158,7 +158,9 @@ def get_available_options(module, command='install'):
     command_help_json = json.loads(out)
     return command_help_json['definition']['options']
 
-def composer_command(module, command, arguments = "", options=[]):
+def composer_command(module, command, arguments = "", options=None):
+    if options is None:
+        options = []
     php_path      = module.get_bin_path("php", True, ["/usr/local/bin"])
     composer_path = module.get_bin_path("composer", True, ["/usr/local/bin"])
     cmd           = "%s %s %s %s %s" % (php_path, composer_path, command, " ".join(options), arguments)

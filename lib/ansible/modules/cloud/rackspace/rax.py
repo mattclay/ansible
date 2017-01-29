@@ -279,10 +279,24 @@ def rax_find_server_image(module, server, image, boot_volume):
     return server.image
 
 
-def create(module, names=[], flavor=None, image=None, meta={}, key_name=None,
-           files={}, wait=True, wait_timeout=300, disk_config=None,
-           group=None, nics=[], extra_create_args={}, user_data=None,
-           config_drive=False, existing=[], block_device_mapping_v2=[]):
+def create(module, names=None, flavor=None, image=None, meta=None, key_name=None,
+           files=None, wait=True, wait_timeout=300, disk_config=None,
+           group=None, nics=None, extra_create_args=None, user_data=None,
+           config_drive=False, existing=None, block_device_mapping_v2=None):
+    if names is None:
+        names = []
+    if meta is None:
+        meta = {}
+    if files is None:
+        files = {}
+    if nics is None:
+        nics = []
+    if extra_create_args is None:
+        extra_create_args = {}
+    if existing is None:
+        existing = []
+    if block_device_mapping_v2 is None:
+        block_device_mapping_v2 = []
     cs = pyrax.cloudservers
     changed = False
 
@@ -389,7 +403,11 @@ def create(module, names=[], flavor=None, image=None, meta={}, key_name=None,
         module.exit_json(**results)
 
 
-def delete(module, instance_ids=[], wait=True, wait_timeout=300, kept=[]):
+def delete(module, instance_ids=None, wait=True, wait_timeout=300, kept=None):
+    if instance_ids is None:
+        instance_ids = []
+    if kept is None:
+        kept = []
     cs = pyrax.cloudservers
 
     changed = False
@@ -466,13 +484,23 @@ def delete(module, instance_ids=[], wait=True, wait_timeout=300, kept=[]):
 
 
 def cloudservers(module, state=None, name=None, flavor=None, image=None,
-                 meta={}, key_name=None, files={}, wait=True, wait_timeout=300,
-                 disk_config=None, count=1, group=None, instance_ids=[],
-                 exact_count=False, networks=[], count_offset=0,
-                 auto_increment=False, extra_create_args={}, user_data=None,
+                 meta=None, key_name=None, files=None, wait=True, wait_timeout=300,
+                 disk_config=None, count=1, group=None, instance_ids=None,
+                 exact_count=False, networks=None, count_offset=0,
+                 auto_increment=False, extra_create_args=None, user_data=None,
                  config_drive=False, boot_from_volume=False,
                  boot_volume=None, boot_volume_size=None,
                  boot_volume_terminate=False):
+    if meta is None:
+        meta = {}
+    if files is None:
+        files = {}
+    if instance_ids is None:
+        instance_ids = []
+    if networks is None:
+        networks = []
+    if extra_create_args is None:
+        extra_create_args = {}
     cs = pyrax.cloudservers
     cnw = pyrax.cloud_networks
     if not cnw:

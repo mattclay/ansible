@@ -764,7 +764,7 @@ def _find_snippet_imports(module_name, module_data, module_path, module_args, ta
     return (module_data, module_style, shebang)
 
 
-def modify_module(module_name, module_path, module_args, task_vars=dict(), module_compression='ZIP_STORED'):
+def modify_module(module_name, module_path, module_args, task_vars=None, module_compression='ZIP_STORED'):
     """
     Used to insert chunks of code into modules before transfer rather than
     doing regular python imports.  This allows for more efficient transfer in
@@ -788,6 +788,8 @@ def modify_module(module_name, module_path, module_args, task_vars=dict(), modul
     which results in the inclusion of the common code from powershell.ps1
 
     """
+    if task_vars is None:
+        task_vars = dict()
     with open(module_path, 'rb') as f:
 
         # read in the module source

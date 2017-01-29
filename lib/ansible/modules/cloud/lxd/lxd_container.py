@@ -379,7 +379,9 @@ class LXDContainerManagement(object):
         self._change_state('unfreeze')
         self.actions.append('unfreez')
 
-    def _container_ipv4_addresses(self, ignore_devices=['lo']):
+    def _container_ipv4_addresses(self, ignore_devices=None):
+        if ignore_devices is None:
+            ignore_devices = ['lo']
         resp_json = self._get_container_state_json()
         network = resp_json['metadata']['network'] or {}
         network = dict((k, v) for k, v in network.items() if k not in ignore_devices) or {}

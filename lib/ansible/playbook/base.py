@@ -281,8 +281,10 @@ class Base(with_metaclass(BaseMeta, object)):
             if key not in valid_attrs:
                 raise AnsibleParserError("'%s' is not a valid attribute for a %s" % (key, self.__class__.__name__), obj=ds)
 
-    def validate(self, all_vars=dict()):
+    def validate(self, all_vars=None):
         ''' validation that is done at parse time, not load time '''
+        if all_vars is None:
+            all_vars = dict()
 
         if not self._validated:
             # walk all fields in the object

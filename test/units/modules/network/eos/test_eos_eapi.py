@@ -73,8 +73,10 @@ class TestEosEapiModule(unittest.TestCase):
         self.mock_load_config.stop()
 
     def execute_module(self, failed=False, changed=False, commands=None,
-            sort=True, command_fixtures={}):
+            sort=True, command_fixtures=None):
 
+        if command_fixtures is None:
+            command_fixtures = {}
         def run_commands(module, commands, **kwargs):
             output = list()
             for cmd in commands:

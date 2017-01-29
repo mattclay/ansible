@@ -125,7 +125,9 @@ class netscaler(object):
     def __init__(self, module):
         self.module = module
 
-    def http_request(self, api_endpoint, data_json={}):
+    def http_request(self, api_endpoint, data_json=None):
+        if data_json is None:
+            data_json = {}
         request_url = self._nsc_protocol + '://' + self._nsc_host + self._nitro_base_url + api_endpoint
 
         data_json = urllib.urlencode(data_json)
