@@ -299,7 +299,9 @@ class Rhn(RegistrationBase):
         # Remove systemid file
         os.unlink(self.config['systemIdPath'])
 
-    def subscribe(self, channels=[]):
+    def subscribe(self, channels=None):
+        if channels is None:
+            channels = []
         if len(channels) <= 0:
             return
         if self._is_hosted():
@@ -328,10 +330,12 @@ class Rhn(RegistrationBase):
                 out_childs = self.api('system.setChildChannels', self.systemid, new_childs)
             return out_base and out_childs
 
-    def _subscribe(self, channels=[]):
+    def _subscribe(self, channels=None):
         '''
             Subscribe to requested yum repositories using 'rhn-channel' command
         '''
+        if channels is None:
+            channels = []
         rhn_channel_cmd = "rhn-channel --user='%s' --password='%s'" % (self.username, self.password)
         rc, stdout, stderr = self.module.run_command(rhn_channel_cmd + " --available-channels", check_rc=True)
 

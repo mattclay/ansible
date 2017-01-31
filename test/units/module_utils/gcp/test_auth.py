@@ -44,7 +44,9 @@ class GCPAuthTestCase(unittest.TestCase):
                         return self.data[key]
                     else:
                         return alt
-            def __init__(self, data={}):
+            def __init__(self, data=None):
+                if data is None:
+                    data = {}
                 self.params = FakeModule.Params()
                 self.params.data = data
         input_data = {'service_account_email': 'mysa',

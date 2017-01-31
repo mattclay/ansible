@@ -173,9 +173,11 @@ def run_commands(module, commands):
 
     return responses
 
-def get_config(module, flags=[]):
+def get_config(module, flags=None):
     """Retrieves the current config from the device or cache
     """
+    if flags is None:
+        flags = []
     cmd = 'show running-config '
     cmd += ' '.join(flags)
     cmd = cmd.strip()

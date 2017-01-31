@@ -403,7 +403,7 @@ def _validate_named_port_params(params):
     return (True, '')
 
 
-def _get_instance_list(mig, field='name', filter_list=['NONE']):
+def _get_instance_list(mig, field='name', filter_list=None):
     """
     Helper to grab field from instances response.
 
@@ -422,6 +422,8 @@ def _get_instance_list(mig, field='name', filter_list=['NONE']):
     :return: List of strings from list_managed_instances response.
     :rtype: ``list``
     """
+    if filter_list is None:
+        filter_list = ['NONE']
     return [x[field] for x in mig.list_managed_instances()
             if x['currentAction'] in filter_list]
 

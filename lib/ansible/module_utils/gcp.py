@@ -275,7 +275,7 @@ def gcp_connect(module, provider, get_driver, user_agent_product, user_agent_ver
     return gcp
 
 
-def get_google_cloud_credentials(module, scopes=[]):
+def get_google_cloud_credentials(module, scopes=None):
     """
     Get credentials object for use with Google Cloud client.
 
@@ -301,6 +301,8 @@ def get_google_cloud_credentials(module, scopes=[]):
               params dict {'service_account_email': '...', 'credentials_file': '...', 'project_id': ...}
     :rtype: ``tuple``
     """
+    if scopes is None:
+        scopes = []
     if not HAS_GOOGLE_AUTH:
         module.fail_json(msg='Please install google-auth.')
 
@@ -322,7 +324,7 @@ def get_google_cloud_credentials(module, scopes=[]):
         module.fail_json(msg=unexpected_error_msg(e), changed=False)
         return (None, None)
 
-def get_google_api_auth(module, scopes=[], user_agent_product='ansible-python-api', user_agent_version='NA'):
+def get_google_api_auth(module, scopes=None, user_agent_product='ansible-python-api', user_agent_version='NA'):
     """
     Authentication for use with google-python-api-client.
 
@@ -358,6 +360,8 @@ def get_google_api_auth(module, scopes=[], user_agent_product='ansible-python-ap
               params dict {'service_account_email': '...', 'credentials_file': '...', 'project_id': ...}
     :rtype: ``tuple``
     """
+    if scopes is None:
+        scopes = []
     if not HAS_GOOGLE_API_LIB:
         module.fail_json(msg="Please install google-api-python-client library")
     # TODO(supertom): verify scopes

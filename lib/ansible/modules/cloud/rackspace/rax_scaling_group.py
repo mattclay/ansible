@@ -156,11 +156,19 @@ except ImportError:
     HAS_PYRAX = False
 
 
-def rax_asg(module, cooldown=300, disk_config=None, files={}, flavor=None,
-            image=None, key_name=None, loadbalancers=[], meta={},
-            min_entities=0, max_entities=0, name=None, networks=[],
+def rax_asg(module, cooldown=300, disk_config=None, files=None, flavor=None,
+            image=None, key_name=None, loadbalancers=None, meta=None,
+            min_entities=0, max_entities=0, name=None, networks=None,
             server_name=None, state='present', user_data=None,
             config_drive=False, wait=True, wait_timeout=300):
+    if files is None:
+        files = {}
+    if loadbalancers is None:
+        loadbalancers = []
+    if meta is None:
+        meta = {}
+    if networks is None:
+        networks = []
     changed = False
 
     au = pyrax.autoscale

@@ -185,7 +185,9 @@ class Templar:
     The main class for templating, with the main entry-point of template().
     '''
 
-    def __init__(self, loader, shared_loader_obj=None, variables=dict()):
+    def __init__(self, loader, shared_loader_obj=None, variables=None):
+        if variables is None:
+            variables = dict()
         self._loader              = loader
         self._filters             = None
         self._tests               = None
@@ -331,12 +333,14 @@ class Templar:
         self._available_variables = variables
         self._cached_result       = {}
 
-    def template(self, variable, convert_bare=False, preserve_trailing_newlines=True, escape_backslashes=True, fail_on_undefined=None, overrides=None, convert_data=True, static_vars=[''], cache=True, bare_deprecated=True, disable_lookups=False):
+    def template(self, variable, convert_bare=False, preserve_trailing_newlines=True, escape_backslashes=True, fail_on_undefined=None, overrides=None, convert_data=True, static_vars=None, cache=True, bare_deprecated=True, disable_lookups=False):
         '''
         Templates (possibly recursively) any given data as input. If convert_bare is
         set to True, the given data will be wrapped as a jinja2 variable ('{{foo}}')
         before being sent through the template engine.
         '''
+        if static_vars is None:
+            static_vars = ['']
 
         if fail_on_undefined is None:
             fail_on_undefined = self._fail_on_undefined_errors

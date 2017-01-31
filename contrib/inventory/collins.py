@@ -168,8 +168,10 @@ class CollinsInventory(object):
         print(data_to_print)
         return successful
 
-    def find_assets(self, attributes = {}, operation = 'AND'):
+    def find_assets(self, attributes = None, operation = 'AND'):
         """ Obtains Collins assets matching the provided attributes. """
+        if attributes is None:
+            attributes = {}
 
         # Formats asset search query to locate assets matching attributes, using
         # the CQL search feature as described here:

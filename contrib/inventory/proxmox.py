@@ -50,7 +50,9 @@ class ProxmoxVM(dict):
         return variables
 
 class ProxmoxVMList(list):
-    def __init__(self, data=[]):
+    def __init__(self, data=None):
+        if data is None:
+            data = []
         for item in data:
             self.append(ProxmoxVM(item))
 
