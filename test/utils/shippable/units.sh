@@ -11,3 +11,4 @@ retry.py pip install tox --disable-pip-version-check
 
 # shellcheck disable=SC2086
 ansible-test units --color -v --tox --python "${version}" --coverage ${CHANGED:+"$CHANGED"} \
+    docker
