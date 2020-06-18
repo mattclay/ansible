@@ -1,0 +1,2 @@
+minor_changes:
+  - ansible-test - Update ``pylint`` and its dependencies to the latest available versions to support Python 3.9.
